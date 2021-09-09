@@ -7,6 +7,7 @@ contract MedProduct {
         string name;
         string medDesc;
     }
+    //Schema for storing medicine details 
     struct medicine 
     {
         uint256 medId;
@@ -21,8 +22,11 @@ contract MedProduct {
     event TaskCreated(
         uint256 meds
     );
-    mapping(uint256=>medicine) public medProd;
-    uint256 meds= 12345;
+    
+    mapping(uint256=>medicine) public medProd;      //map storing the medicine object
+    uint256 meds= 12345;                            //medicine ID initialisation
+    
+    //function for adding new medicine to the blockchain
     function newMed(string memory _medName,string memory _mrp,string memory _expiry,string memory _manuDate) public 
     {
         medProd[meds].medId=meds;
@@ -34,6 +38,8 @@ contract MedProduct {
         meds++;
         emit TaskCreated(meds-1);
     }
+    
+    //function to concatenate two given strings
     function concatenate(string memory _a,string memory _b) pure internal returns(string memory)
     {
         bytes memory a=bytes(_a);
@@ -45,6 +51,8 @@ contract MedProduct {
         for(uint256 i=0;i<b.length;i++)c[k++]=b[i];
         return string(c);
     }
+    
+    //add retailers 
     function addret(uint256 _medId,string memory _date,string memory _loc,string memory _name) public returns(string memory)
     {
         string memory description="DATE: ";
@@ -62,6 +70,8 @@ contract MedProduct {
         medProd[_medId].numRetail++;
         return description;
     }
+    
+    //concatenate all the details and return the final string
     function medInfo(uint256 _medId) view public returns(string memory)
     {
         string memory info="Medicine name: ";
